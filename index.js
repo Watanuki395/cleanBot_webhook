@@ -6,6 +6,7 @@ require('dotenv').config()
 const config = require('./dbconfig');
 var dbOperations = require('./dboperations');
 const { response } = require('express');
+const {WebhookClient} = require('dialogflow-fulfillment');
 
 const app = express(); 
 var router = express.Router();
@@ -25,17 +26,19 @@ router.route('/getServices').get((req,res) => {
     });
 });
 
-//app.get('/getServices', (req,res) =>{ 
-//
-//    var myres = {};
-//    sql.connect(config).then(pool =>{
-//            return pool.request()
-//              .query('select * from services_tb');
-//      }).then(result => {
-//          console.log(JSON.stringify(result));
-//          myres = JSON.stringify(result);
-//      }).catch(err => {
-//            console.log(err);
-//      });
-//      res.send(myres);
-//});
+app.post('/dialogflow-fulfillment', (request, response) => {
+    dialogflowFulfillment(request, response)
+});
+
+const dialogflowFulfillment = (request, response) => {
+    const agent = new WebhookClient({request, response})
+
+    function holaHandler(agent){
+        agent.add("Hello, this was a nice tutorial by axlewebtech")
+    }
+
+    let intentMap = new Map();
+    intentMap.set("holaWebHook", holaHandler);
+    agent.handleRequest(intentMap);
+
+}
