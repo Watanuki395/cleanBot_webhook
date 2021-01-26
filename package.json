@@ -4,7 +4,8 @@
   "description": "connecting SQL server from a webhook for Dialogflow",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
   },
   "author": "Gerardo Salas M",
   "license": "ISC",
