@@ -6,7 +6,7 @@ async function getServices(){
     try{
         let pool = await sql.connect(config);
         let services = await pool.request()
-        .query("SELECT service_type FROM services_tb GROUP BY service_type");
+        .query("SELECT service_id, service_name FROM services_tb;");
         const rs = services.recordsets;
         return rs;
     }catch(error){
