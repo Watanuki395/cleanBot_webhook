@@ -49,7 +49,7 @@ const dialogflowFulfillment = (request, response) => {
         const re = result[0].map(item => `${item.service_id}. *${item.service_name}*` ).join('\n');
         console.log(re);
         //return re
-        agent.add(`los servicios que brindamos en este momento son:'\n'${re}'\n' si esta interesado en algun servicio por favor escriba el nombre del servicio para mas informacion.`);
+        agent.add(`los servicios que brindamos en este momento son:\n${re}\n si esta interesado en algun servicio por favor escriba el nombre del servicio para mas informacion.`);
         
     }).catch((err)=>{
         console.log(err);
