@@ -23,7 +23,7 @@ app.listen(port, () => { console.log(`🌏 Server is running at http://localhost
 
 router.route('/getServices').get((req,res) => {
     dbOperations.getServices().then(result =>{
-        const re = result[0].map(item => `servicio de: ${item.service_type}` ).join('\n');
+        const re = result[0].map(item => `servicio de: ${item.nombre_servicio}` ).join('\n');
         console.log(re);
         //return re
         
@@ -46,7 +46,7 @@ const dialogflowFulfillment = (request, response) => {
    async function getServicesHandler(agent){
 
     await dbOperations.getServices().then(result =>{
-        const re = result[0].map(item => `*${item.service_name}*` ).join('\n');
+        const re = result[0].map(item => `*${item.nombre_servicio}*` ).join('\n');
         console.log(re);
         //return re
         agent.add(`Actualmente brindamos servicios de limpieza de tapiceria en los siguientes articulos:
