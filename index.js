@@ -46,10 +46,12 @@ const dialogflowFulfillment = (request, response) => {
    async function getServicesHandler(agent){
 
     await dbOperations.getServices().then(result =>{
-        const re = result[0].map(item => `${item.service_id}. *${item.service_name}*` ).join('\n');
+        const re = result[0].map(item => `*${item.service_name}*` ).join('\n');
         console.log(re);
         //return re
-        agent.add(`Actualmente brindamos servicios de limpieza de tapiceria en los siguientes articulos:\n${re}\n si esta interesado en algun servicio por favor escriba el nombre del servicio para mas informacion.`);
+        agent.add(`Actualmente brindamos servicios de limpieza de tapiceria en los siguientes articulos:
+        \n${re}\n si esta interesado en algun servicio por favor escriba el nombre del servicio para 
+        obtener los detalles o escriba *2* para ver una lista de precios en general.`);
         
     }).catch((err)=>{
         console.log(err);
