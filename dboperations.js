@@ -14,6 +14,19 @@ async function getServices(){
     }
 };
 
+async function getServicesSP(){
+    try{
+        let pool = await sql.connect(config);
+        let services = await pool.request()
+        .execute('sp_getServices');
+        const rs = services.recordsets;
+        return rs;
+    }catch(error){
+        console.log(error);
+    }
+};
+
+
 module.exports =  {
-    getServices : getServices
+    getServices : getServices, getServicesSP : getServicesSP
 }
