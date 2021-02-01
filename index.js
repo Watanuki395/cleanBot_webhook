@@ -66,8 +66,8 @@ const dialogflowFulfillment = (request, response) => {
 
     async function getQyesHandler(agent){
 
-        //var user = agent.parameters.nombreUsuario
-        agent.add(`estamos haciendo una cotizacion.`);
+        var user = agent.parameters.nombreUsuario
+        agent.add(`su nombre de usuario es: ${user}`);
 
     };
 
