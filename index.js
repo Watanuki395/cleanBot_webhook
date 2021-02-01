@@ -49,7 +49,7 @@ const dialogflowFulfillment = (request, response) => {
         const re = result[0].map(item => `*${item.nombre_servicio}*` ).join('\n');
         console.log(re);
         //return re
-        agent.add(`Actualmente brindamos servicios de limpieza de tapiceria en los siguientes articulos:\n${re}\n si esta interesado en algun servicio por favor escriba el nombre del servicio para obtener los detalles o escriba *2* para ver una lista de precios en general.`);
+        agent.add(`Actualmente brindamos servicios de limpieza de tapiceria en los siguientes articulos:\n${re}\nle gustaria agendar una cita?`);
         
     }).catch((err)=>{
         console.log(err);
@@ -57,9 +57,17 @@ const dialogflowFulfillment = (request, response) => {
  
     };
 
+    async function getAppointmentHandler(agent){
+
+        var user = agent.parameters.nombreUsuario
+        agent.add(`su nombre de usuario es: ${user}`);
+
+    };
+
     let intentMap = new Map();
     intentMap.set("holaWebHook", holaHandler);
     intentMap.set("getServices", getServicesHandler);
+    intentMap.set("getAppointment", getAppointmentHandler);
     agent.handleRequest(intentMap);
 
 }
