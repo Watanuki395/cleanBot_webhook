@@ -64,10 +64,18 @@ const dialogflowFulfillment = (request, response) => {
 
     };
 
+    async function getQyesHandler(agent){
+
+        //var user = agent.parameters.nombreUsuario
+        agent.add(`estamos haciendo una cotizacion.`);
+
+    };
+
     let intentMap = new Map();
     intentMap.set("holaWebHook", holaHandler);
     intentMap.set("getServices", getServicesHandler);
     intentMap.set("getAppointment", getAppointmentHandler);
+    intentMap.set("getQyes", getQyesHandler);
     agent.handleRequest(intentMap);
 
 }
