@@ -59,7 +59,7 @@ const dialogflowFulfillment = (request, response) => {
         const re = result[0].map(item => `*${item.nombre_servicio}*` ).join('\n');
         console.log(re);
         //return re
-        agent.add(`Actualmente brindamos servicios de limpieza de tapiceria en los siguientes articulos:\n${re}\nle gustaria cotizar un servicio?`);
+        agent.add(`Actualmente brindamos servicios de limpieza de tapiceria en los siguientes articulos:\n${re}\nle gustaria cotizar algun servicio?`);
         
     }).catch((err)=>{
         console.log(err);
@@ -82,11 +82,22 @@ const dialogflowFulfillment = (request, response) => {
 
     };
 
+
+    async function getConfirmDemoYESHandler(agent){
+
+        var Fname = agent.parameters.Fname
+        var Lname = agent.parameters.Lname
+        var Email = agent.parameters.Email
+        agent.add(`${Fname} Muchas gracias 😁, por su interes en nuestros servicios,\nya tenemos tus datos de contacto para agendar una cita,\nte vamos a enviar una correo electronico a ${Email} con la informacion de la demo de nuestros productos\n¡¡Gracias por confiar en GALER.IA!!! `);
+
+    };
+
     let intentMap = new Map();
     intentMap.set("holaWebHook", holaHandler);
     intentMap.set("getServices", getServicesHandler);
     intentMap.set("getAppointment", getAppointmentHandler);
     intentMap.set("getQyes", getQyesHandler);
+    intentMap.set("getConfirmDemoYES", getConfirmDemoYESHandler);
     agent.handleRequest(intentMap);
 
 }
