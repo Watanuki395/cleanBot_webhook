@@ -88,7 +88,18 @@ const dialogflowFulfillment = (request, response) => {
         var Fname = agent.parameters.Fname
         var Lname = agent.parameters.Lname
         var Email = agent.parameters.Email
+        
+        await dbOperations.InserClientSP(Fname,Lname,Email).then(result =>{
+            const re = result[0].map(item => `${item.re}` );
+            console.log(re);
+        }).catch((err)=>{
+            console.log(err);
+        });    
+     
+
+
         agent.add(`${Fname} Muchas gracias 😁, por su interes en nuestros servicios,\nya tenemos tus datos de contacto para agendar una cita,\nte vamos a enviar una correo electronico a ${Email} con la informacion de la demo de nuestros productos\n¡¡Gracias por confiar en GALER.IA!!! `);
+
 
     };
 

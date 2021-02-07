@@ -26,7 +26,21 @@ async function getServicesSP(){
     }
 };
 
+async function InserClientSP(Fname,Lname,Email){
+    try{
+        let pool = await sql.connect(config);
+        let services = await pool.request()
+        .input('nombreC', sql.VarChar(200), Fname)
+        .input('apellidoC', sql.VarChar(100), Lname)
+        .input('emailC', sql.VarChar(100), Email)
+        .execute('sp_InsertClient');
+        const rs = services.recordsets;
+        return rs;
+    }catch(error){
+        console.log(error);
+    }
+};
 
 module.exports =  {
-    getServices : getServices, getServicesSP : getServicesSP
+    getServices : getServices, getServicesSP : getServicesSP, InserClientSP : InserClientSP
 }
