@@ -5,6 +5,7 @@ const sql = require('mssql');
 require('dotenv').config() 
 const config = require('./dbconfig');
 var dbOperations = require('./dboperations');
+var SendEmails = require('./sendgrid_conf');
 const { response } = require('express');
 const {WebhookClient} = require('dialogflow-fulfillment');
 const { json } = require('body-parser');
@@ -88,6 +89,9 @@ const dialogflowFulfillment = (request, response) => {
         var Fname = agent.parameters.Fname
         var Lname = agent.parameters.Lname
         var Email = agent.parameters.Email
+        var xDate = '02/02/2021';
+        var xHora = '1PM';
+        var NumSeg = Date.now();
         
         await dbOperations.InserClientSP(Fname,Lname,Email).then(result =>{
             const re = result[0].map(item => `${item.re}` );
@@ -96,7 +100,7 @@ const dialogflowFulfillment = (request, response) => {
             console.log(err);
         });    
      
-
+        SendEmails.sendEmail(Email,Fname,NumSeg,xDate,xHora);
 
         agent.add(`${Fname} Muchas gracias 😁, por su interes en nuestros servicios,\nya tenemos tus datos de contacto para agendar una cita,\nte vamos a enviar una correo electronico a ${Email} con la informacion de la demo de nuestros productos\n¡¡Gracias por confiar en GALER.IA!!! `);
 
