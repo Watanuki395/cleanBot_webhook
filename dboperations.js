@@ -26,13 +26,14 @@ async function getServicesSP(){
     }
 };
 
-async function InserClientSP(Fname,Lname,Email){
+async function InserClientSP(Fname,Lname,Email,telNum){
     try{
         let pool = await sql.connect(config);
         let services = await pool.request()
-        .input('nombreC', sql.VarChar(200), Fname)
-        .input('apellidoC', sql.VarChar(100), Lname)
-        .input('emailC', sql.VarChar(100), Email)
+        .input('Fname', sql.VarChar(150), Fname)
+        .input('Lname', sql.VarChar(150), Lname)
+        .input('Tel', sql.VarChar(11), telNum)
+        .input('Email', sql.VarChar(11), Email)
         .execute('sp_InsertClient');
         const rs = services.recordsets;
         return rs;

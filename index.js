@@ -89,11 +89,12 @@ const dialogflowFulfillment = (request, response) => {
         var Fname = agent.parameters.Fname
         var Lname = agent.parameters.Lname
         var Email = agent.parameters.Email
+        var telNum = '71045098'
         var xDate = '02/02/2021';
-        var xHora = '1PM';
+        var xHora = '2PM';
         var NumSeg = Date.now();
         
-        await dbOperations.InserClientSP(Fname,Lname,Email).then(result =>{
+        await dbOperations.InserClientSP(Fname,Lname,Email,telNum).then(result =>{
             const re = result[0].map(item => `${item.re}` );
             console.log(re);
         }).catch((err)=>{
