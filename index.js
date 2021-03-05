@@ -1,6 +1,6 @@
 const express = require('express') ;
 const bodyParser = require('body-parser');
-const cors = require('cors')
+const cors = require('cors');
 const sql = require('mssql');
 require('dotenv').config() 
 const config = require('./dbconfig');
@@ -21,10 +21,23 @@ app.use(cors());
 app.use('/',router);
 //app.get('/', (req, res) => { res.status(200).send('Server is working.') }); 
 app.listen(port, () => { console.log(`🌏 Server is running at http://localhost:${port}`) });
+app.use(express.static(__dirname+'/public'));
+
+router.route('/img').get((req,res) => {
+    res.sendFile('Messenger.jpg', options, function (err) {
+        if (err) {
+            console.log(err);
+            res.status(err.status).end();
+        }
+        else {
+           console.log('Sent:', fileName);
+       }
+    });
+});
 
 router.route('/getServices').get((req,res) => {
     dbOperations.getServices().then(result =>{
-        const re = result[0].map(item => `servicio de: ${item.nombre_servicio}` ).join('\n');
+        const re = result[0].map(item => `servicio de: ${item.saludo}` ).join('\n');
         console.log(re);
          res.send(re);
     
@@ -103,8 +116,7 @@ const dialogflowFulfillment = (request, response) => {
      
         SendEmails.sendEmail(Email,Fname,NumSeg,xDate,xHora);
 
-        agent.add(`${Fname} Muchas gracias 😁, por su interes en nuestros servicios,\nya tenemos tus datos de contacto para agendar una cita,\nte vamos a enviar una correo electronico a ${Email} con la informacion de la demo de nuestros productos\n¡¡Gracias por confiar en GALER.IA!!! `);
-
+        agent.add(`${Fname} Muchas gracias 😁, por su interés en nuestros servicios,\nya tenemos tus datos de contacto para poder brindarte la información que buscas,\nte vamos a enviar un correo electrónico a ${Email} con la información de la demo de nuestros productos y servicios\n¡¡Gracias por confiar en GALER.IA!!! `);
 
     };
 
