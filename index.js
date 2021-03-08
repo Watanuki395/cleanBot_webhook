@@ -37,7 +37,7 @@ router.route('/img').get((req,res) => {
 
 router.route('/getServices').get((req,res) => {
     dbOperations.getServices().then(result =>{
-        const re = result[0].map(item => `servicio de: ${item.saludo}` ).join('\n');
+        const re = result[0].map(item => `servicio de: ${item.nombre_servicio}` ).join('\n');
         console.log(re);
          res.send(re);
     
