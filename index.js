@@ -102,7 +102,7 @@ const dialogflowFulfillment = (request, response) => {
         var Fname = agent.parameters.Fname
         var Lname = agent.parameters.Lname
         var Email = agent.parameters.Email
-        var telNum = '71045098'
+        var telNum = agent.parameters.telNum
         var xDate = '02/02/2021';
         var xHora = '2PM';
         var NumSeg = Date.now();
@@ -113,7 +113,6 @@ const dialogflowFulfillment = (request, response) => {
         }).catch((err)=>{
             console.log(err);
         });    
-     
         SendEmails.sendEmail(Email,Fname,NumSeg,xDate,xHora);
 
         agent.add(`${Fname} Muchas gracias 😁, por su interés en nuestros servicios,\nya tenemos tus datos de contacto para poder brindarte la información que buscas,\nte vamos a enviar un correo electrónico a ${Email} con la información de la demo de nuestros productos y servicios\n¡¡Gracias por confiar en GALER.IA!!! `);
